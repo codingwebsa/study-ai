@@ -2,16 +2,23 @@ import localFont from "next/font/local"
 
 import { cn } from "~/lib/utils"
 import { Icons } from "~/components/icons"
+
+import { serverClient } from "../_trpc/server-client"
 import Input from "./_comonents/input"
+import TestTRPC from "./_comonents/test-trpc"
 
 const fontHeading = localFont({
   src: "../../../public/fonts/CalSans-SemiBold.ttf",
 })
 
-export default function HomePage() {
+export default async function HomePage() {
+  const user = await serverClient.user.getUser()
+  console.log("🚀 ~ file: page.tsx:16 ~ HomePage ~ user:", user)
+
   return (
     <div className="p-4 h-full overflow-hidden">
       <div className="flex flex-col h-full isolate relative">
+        <TestTRPC />
         <section className="flex-1 flex flex-col justify-center">
           <div className="text-center">
             <h1 className={cn("text-5xl leading-loose", fontHeading.className)}>

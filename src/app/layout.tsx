@@ -9,6 +9,8 @@ import { cn } from "~/lib/utils"
 import { Toaster } from "~/components/ui/toaster"
 import TailwindIndicator from "~/components/tailwind-indicator"
 
+import TRPCProvider from "./_trpc/provider"
+
 const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -75,16 +77,18 @@ export default function RootLayout({
         )}
       >
         <SessionProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-            <TailwindIndicator />
-          </ThemeProvider>
+          <TRPCProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+              <TailwindIndicator />
+            </ThemeProvider>
+          </TRPCProvider>
         </SessionProvider>
       </body>
     </html>
